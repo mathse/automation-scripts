@@ -179,11 +179,7 @@ EOF
 
 ##-------------------------------------------------------------------------------------------------------------------------
 # modifying cmb.conf
-cat /etc/samba/smb.conf.orig | sed "s/workgroup = MYGROUP/workgroup = MDC-BERLIN\nnetbios name = $hostname\nsecurity = ads\ndedicated keytab file = \/etc\/krb5.keytab\nkerberos method = system keytab\nrealm = example.com/g" | sed 's/security = user//g' > /etc/samba/smb.conf
-
-##-------------------------------------------------------------------------------------------------------------------------
-# dns stuff (http://robaker.blogspot.de/2012/11/auto-register-ad-dns-host-name-from.html)
-# ignore that part ATM
+cat /etc/samba/smb.conf.orig | sed "s/workgroup = MYGROUP/workgroup = EXAMPLE\nnetbios name = $hostname\nsecurity = ads\ndedicated keytab file = \/etc\/krb5.keytab\nkerberos method = system keytab\nrealm = example.com/g" | sed 's/security = user//g' > /etc/samba/smb.conf
 
 ##-------------------------------------------------------------------------------------------------------------------------
 echo "which user to join with? (*-adm accounts will set os-name and version)"
