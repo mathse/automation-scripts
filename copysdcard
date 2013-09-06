@@ -1,0 +1,22 @@
+#!/bin/bash
+# moves eveything form your canon sd card to a folder
+# rsync is need
+# author: Mathias Decker (github@mathiasdecker.de)
+# works on ubuntu / should also work on other dists or mac
+
+user=$(whoami)
+mountpoint="/media/$user/EOS_DIGITAL"
+target="/home/unencrypted"
+
+
+date=$(date +%d-%m-%Y)
+time=$(date +%H-%M)
+for f in $(ls -1 $mountpoint/DCIM/ | grep -vi misc)
+do
+	if [ $(ls $mountpoint/DCIM/$f/ | wc -l) -eq 0 ]; then
+		echo "nothing to do"
+	else
+		mkdir -p $target/$date
+		rsync -vv --progress --remove-source-files $mountpoint/DCIM/$f/* $target/$date
+	fi
+done
